@@ -1,0 +1,43 @@
+<div th:fragment="content">
+	<div class="container">
+		<div class="text-center">
+			<h1>Creating Course Form</h1>
+		</div>
+		<br>
+		<div class="col-lg-4 col-lg-offset-4 ">
+			<form action="#" th:action="@{/courses}" th:object="${courses}"
+				method="post">
+				<div class="form-group" name="name" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{name}"
+						th:errorclass="has-error" placeholder="Name">
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				</div>
+				<div class="form-group" name="description" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{description}"
+						th:errorclass="has-error" placeholder="Description">
+					<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+				</div>
+				<div class="form-group" name="prerequisites" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{prerequisites}"
+						th:errorclass="has-error" placeholder="Prerequisites">
+					<p th:if="${#fields.hasErrors('prerequisites')}"
+						th:errors="*{prerequisites}"></p>
+				</div>
+				<div class="form-group" name="detailPageLink" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{detailPageLink}"
+						th:errorclass="has-error" placeholder="Detail Page Link">
+					<p th:if="${#fields.hasErrors('detailPageLink')}" th:errors="*{detailPageLink}"></p>
+				</div>
+				<label for="ch">Active : <input type="checkbox" id="ch"
+						class="checkbox" th:field="*{active}" /></label>
+
+				<p>
+					<input type="submit" value="Submit"
+						class="btn btn-primary form-control" /> <br /> <br /> <input
+						type="reset" value="Reset" class="btn btn-danger form-control" />
+				</p>
+			</form>
+		</div>
+
+	</div>
+</div>

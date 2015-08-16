@@ -1,6 +1,8 @@
 <div th:fragment="content">
 	<div class="container">
-		<div class="text-center"><h1>Creating Admin Form</h1></div>
+		<div class="text-center">
+			<h1>Creating Admin Form</h1>
+		</div>
 		<br>
 		<div class="col-lg-4 col-lg-offset-4 ">
 			<form action="#" th:action="@{/admins}" th:object="${admins}"
@@ -35,6 +37,10 @@
 					<input type="password" class="form-control" th:field="*{password}"
 						th:errorclass="has-error" placeholder="Password">
 					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" id="passwordAgain"
+						placeholder="Password Again">
 				</div>
 				<div class="form-group" name="phone" th:errorclass="has-error">
 					<input type="text" class="form-control" th:field="*{phone}"

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tr.org.lkd.lyk2015.camp.model.Admin;
 import tr.org.lkd.lyk2015.camp.service.AdminService;
@@ -34,6 +35,24 @@ public class AdminController {
 	public String createAdminForm(@ModelAttribute(value="admins") Admin admin) {
 		return "admin/createAdmin";
 	}
+	
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String postAdminCreate(@ModelAttribute @Valid Admin admin,
+                                  @RequestParam("passwordAgain") String passwordAgain,
+                                  BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/createAdmin";
+        }
+
+        if (!passwordAgain.equals(admin.getPassword())) {
+            //TODO error
+        }
+        adminService.create(admin);
+
+        return "redirect:/admins";
+
+    }
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String create(@ModelAttribute @Valid Admin admin, Model model, BindingResult bindingResult) {

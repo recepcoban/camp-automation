@@ -13,41 +13,42 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import tr.org.lkd.lyk2015.camp.model.Admin;
+import tr.org.lkd.lyk2015.camp.model.Course;
+
 
 @Repository
-public class AdminDao {
+public class CourseDao {
 
 	@Autowired
 	protected SessionFactory sessionFactory;
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
-	public Long create(Admin admin) {
+	public Long create(Course course) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		Calendar now = Calendar.getInstance();
-		admin.setCreateDate(now);
-		admin.setUpdateDate(now);
+		course.setCreateDate(now);
+		course.setUpdateDate(now);
 		
-		return (Long) session.save(admin);
+		return (Long) session.save(course);
 	}
 
-	public Admin getById(final Long id) {
+	public Course getById(final Long id) {
 		final Session session = sessionFactory.getCurrentSession();
-		return (Admin) session.get(Admin.class, id);
+		return (Course) session.get(Course.class, id);
 	}
 
-	public Admin update(final Admin admin) {
+	public Course update(final Course course) {
 		final Session session = sessionFactory.getCurrentSession();
-		return (Admin) session.merge(admin);
+		return (Course) session.merge(course);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Admin> getAll() {
+	public List<Course> getAll() {
 
 		final Session session = sessionFactory.getCurrentSession();
-		final Criteria criteria = session.createCriteria(Admin.class);
+		final Criteria criteria = session.createCriteria(Course.class);
 		criteria.add(Restrictions.eq("deleted", false));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.setFetchMode("*", FetchMode.JOIN);
@@ -55,10 +56,10 @@ public class AdminDao {
 		return criteria.list();
 	}
 
-	public void hardDelete(final Admin admin) {
+	public void hardDelete(final Course course) {
 
 		final Session session = sessionFactory.getCurrentSession();
-		session.delete(admin);
+		session.delete(course);
 	}
 	
 }

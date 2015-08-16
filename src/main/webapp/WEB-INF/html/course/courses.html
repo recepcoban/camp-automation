@@ -1,0 +1,45 @@
+<div th:fragment="content">
+
+	<div class="container">
+		<div class="text-center">
+			<h1>Courses</h1>
+		</div>
+		<br>
+
+		<table class="table table-hover">
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Prerequisites</th>
+				<th>Detail Page Link</th>
+				<th>Active</th>
+
+			</thead>
+			<tbody>
+				<tr th:each="course : ${courseList}">
+
+					<td th:text="${course.id}"></td>
+
+					<td th:text="${course.name}"></td>
+
+					<td th:text="${course.description}"></td>
+
+					<td th:text="${course.prerequisites}"></td>
+
+					<td><a th:href="${course.detailPageLink}" target="_blank">More Info</a></td>
+
+						<td><input type="checkbox" class="checkbox" name="active"
+							th:checked="${course.active}" /></td>
+
+					<td>
+						<form action="#" th:action="@{/courses/update}" method="get">
+							<button name="id" value="${course.id}" th:value="${course.id}"
+								class="btn btn-primary">Edit</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
