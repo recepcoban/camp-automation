@@ -1,0 +1,54 @@
+<div th:fragment="content">
+	<div class="container">
+		<div class="text-center"><h1>Creating Instructor Form</h1></div>
+		<br>
+		<div class="col-lg-4 col-lg-offset-4 ">
+			<form action="#" th:action="@{/instructors}" th:object="${instructors}"
+				method="post">
+				<div class="form-group" name="name" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{name}"
+						th:errorclass="has-error" placeholder="Name">
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				</div>
+				<div class="form-group" name="surname" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{surname}"
+						th:errorclass="has-error" placeholder="Surname">
+					<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+				</div>
+				<div class="form-group" name="birthDate" th:errorclass="has-error">
+					<input type="number" class="form-control" th:field="*{birthDate}"
+						th:errorclass="has-error" placeholder="Birth Date">
+					<p th:if="${#fields.hasErrors('birthDate')}"
+						th:errors="*{birthDate}"></p>
+				</div>
+				<div class="form-group" name="tckn" th:errorclass="has-error">
+					<input type="number" class="form-control" th:field="*{tckn}"
+						th:errorclass="has-error" placeholder="TC ID">
+					<p th:if="${#fields.hasErrors('tckn')}" th:errors="*{tckn}"></p>
+				</div>
+				<div class="form-group" name="email" th:errorclass="has-error">
+					<input type="email" class="form-control" th:field="*{email}"
+						th:errorclass="has-error" placeholder="E-mail">
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+				</div>
+				<div class="form-group" name="password" th:errorclass="has-error">
+					<input type="password" class="form-control" th:field="*{password}"
+						th:errorclass="has-error" placeholder="Password">
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+				</div>
+				<div class="form-group" name="phone" th:errorclass="has-error">
+					<input type="text" class="form-control" th:field="*{phone}"
+						th:errorclass="has-error" placeholder="Phone">
+					<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+				</div>
+
+				<p>
+					<input type="submit" value="Submit"
+						class="btn btn-primary form-control" /> <br /> <br /> <input
+						type="reset" value="Reset" class="btn btn-danger form-control" />
+				</p>
+			</form>
+		</div>
+
+	</div>
+</div>
