@@ -1,0 +1,50 @@
+<div th:fragment="content">
+	<div class="container">
+		<div class="text-center">
+			<h1>Updating Admin Form</h1>
+		</div>
+		<br>
+		<div class="col-lg-4 col-lg-offset-4 ">
+			<form action="#" th:action="@{/admins/update}" th:object="${admin}"
+				method="post">
+				<p>
+					<input type="hidden" th:field="*{id}" />
+				</p>
+				<p>
+					Name: <input type="text" class="form-control" th:field="*{name}" />
+				</p>
+				<p>
+					Surname: <input type="text" class="form-control" th:field="*{surname}" />
+				</p>
+				<p>
+					Birth Date: <input type="number" class="form-control" th:field="*{birthDate}" />
+				</p>
+				<p>
+					TCKN: <input type="number" class="form-control" th:field="*{tckn}" />
+				</p>
+				<p>
+					email: <input type="text" class="form-control" th:field="*{email}" />
+				</p>
+				<p>
+					password: <input type="text" class="form-control" th:field="*{password}" />
+				</p>
+				<p>
+					phone: <input type="number" class="form-control" th:field="*{phone}" />
+				</p>
+				<p>
+					lkdNo: <input type="number" class="form-control" th:field="*{lkdNo}" />
+				</p>
+				<p>
+					<input type="submit" class="btn btn-primary form-control"
+						value="Submit" />
+				</p>
+			</form>
+			<strong>
+				<div class="alert alert-success fade in" th:text="${message}"
+					th:if="${message} != null"></div>
+				</p>
+			</strong>
+		</div>
+
+	</div>
+</div>

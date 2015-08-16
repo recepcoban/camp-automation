@@ -66,5 +66,22 @@ public class AdminController {
 		return "admin/admins";
 	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.GET, params={"id"})
+	public String updateForm(@ModelAttribute Admin admin, Model model, @RequestParam(value="message", required=false) String message) {
+		Admin adminNew = adminService.getById(admin.getId());
+		model.addAttribute("admin", adminNew);
+		model.addAttribute("message", message); // fix repost problem
+		
+		return "admin/updateAdmin";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Admin admin, Model model) {
+		
+		adminService.update(admin);
+		model.addAttribute("message", "Success!");
+
+		return "redirect:/admins/update?id="+admin.getId(); // fix repost problem
+	}
 
 }
