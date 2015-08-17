@@ -47,7 +47,7 @@
 
 				<div class="form-group">
 					<select multiple="multiple" name="courseIds" class="form-control">
-						<option th:each="course : ${courseIds}" th:value="${course.id}"
+						<option th:each="course : ${courses}" th:value="${course.id}"
 							th:text="${course.name}">Wireframe</option>
 					</select>
 				</div>

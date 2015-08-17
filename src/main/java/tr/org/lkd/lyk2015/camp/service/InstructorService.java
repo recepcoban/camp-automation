@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,11 +68,23 @@ public class InstructorService implements Serializable {
 		List<Course> courses = courseDao.getByIds(ids);
 		
 		Set<Course> courseSet = new HashSet<>();
-		courseSet.addAll(courses);
-		
+		courseSet.addAll(courses);		
 		instructor.setCourses(courseSet);
+		
+		// instructor.getCourses().addAll(courses);
+		
 		instructorDao.create(instructor);
 	}
 	
+	// long id, inst in = getbyid(id)
+	// hiber.initialize(inst.getcour)
+	
+	public Instructor getInstructorWithCourses(Long id){
+		
+		Instructor instructor = instructorDao.getByIdWithCourses(id);
+//		Hibernate.initialize(instructor.getCourses());
+		
+		return instructor;
+	}
 
 }

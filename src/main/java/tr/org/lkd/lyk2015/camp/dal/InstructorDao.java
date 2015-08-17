@@ -21,9 +21,6 @@ public class InstructorDao {
 	@Autowired
 	protected SessionFactory sessionFactory;
 
-	@Autowired
-	protected CourseDao courseDao;
-
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	public Long create(final Instructor instructor) {
@@ -62,6 +59,18 @@ public class InstructorDao {
 
 		final Session session = sessionFactory.getCurrentSession();
 		session.delete(instructor);
+	}
+	
+	public Instructor getByIdWithCourses(Long id){
+		
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria c = session.createCriteria(Instructor.class);
+		
+		c.add(Restrictions.idEq(id));
+		c.setFetchMode("courses", FetchMode.JOIN);
+		
+		return (Instructor) c.uniqueResult();
+		
 	}
 
 }

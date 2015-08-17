@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tr.org.lkd.lyk2015.camp.model.Course;
 import tr.org.lkd.lyk2015.camp.model.Instructor;
 import tr.org.lkd.lyk2015.camp.service.CourseService;
 import tr.org.lkd.lyk2015.camp.service.InstructorService;
@@ -39,7 +40,7 @@ public class InstructorController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createInstructorForm(@ModelAttribute(value="instructors") Instructor instructor, Model model) {
 		
-		model.addAttribute("courseIds",courseService.getAll());
+		model.addAttribute("courses",courseService.getAll());
 		return "instructor/createInstructor";
 	}
 	
@@ -48,7 +49,8 @@ public class InstructorController {
 	 */
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String create(@ModelAttribute @Valid Instructor instructor, @RequestParam("courseIds") List<Long> ids, Model model, BindingResult bindingResult) {
+	public String create(@ModelAttribute @Valid Instructor instructor, 
+			@RequestParam("courseIds") List<Long> ids, Model model, BindingResult bindingResult) {
 		
 		if (bindingResult.hasErrors()) {
 			return "instructor/createInstructor";
@@ -61,8 +63,10 @@ public class InstructorController {
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
 	public String updateForm(@ModelAttribute Instructor instructor, Model model, @PathVariable("id") Long id, @RequestParam(value="message", required=false) String message) {
-		Instructor instructorNew = instructorService.getById(id);
-		model.addAttribute("instructor", instructorNew);
+		//Instructor instructorNew = instructorService.getById(id);
+		
+		model.addAttribute("instructor",instructorService.getInstructorWithCourses(id));
+		model.addAttribute("courses", courseService.getAll());
 		model.addAttribute("message", message); // fix repost problem
 		
 		return "instructor/updateInstructor";

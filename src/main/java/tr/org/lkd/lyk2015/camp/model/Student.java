@@ -18,7 +18,7 @@ public class Student extends AbstractUser {
 	private Sex sex;
 
 	@OneToMany(mappedBy = "owner")
-	private Set<ApplicationForm> applicationForms;
+	private Set<Application> applicationForms;
 
 	public Sex getSex() {
 		return sex;
