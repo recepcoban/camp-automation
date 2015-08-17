@@ -39,10 +39,13 @@ public class InstructorController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createInstructorForm(@ModelAttribute(value="instructors") Instructor instructor, Model model) {
 		
-		model.addAttribute("courses", courseService.getAll());
-		
+		model.addAttribute("courseIds",courseService.getAll());
 		return "instructor/createInstructor";
 	}
+	
+	/*
+	 * ${#lists.contains(ins.courses,course)
+	 */
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String create(@ModelAttribute @Valid Instructor instructor, @RequestParam("courseIds") List<Long> ids, Model model, BindingResult bindingResult) {
@@ -50,7 +53,7 @@ public class InstructorController {
 		if (bindingResult.hasErrors()) {
 			return "instructor/createInstructor";
 		}		
-		instructorService.create(instructor);
+		instructorService.create(instructor,ids);
 		List<Instructor> instructors = instructorService.getAll();
 		model.addAttribute("instructorList", instructors);
 		return "instructor/instructors";

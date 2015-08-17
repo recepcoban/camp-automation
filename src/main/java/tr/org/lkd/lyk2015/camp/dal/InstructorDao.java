@@ -21,15 +21,18 @@ public class InstructorDao {
 	@Autowired
 	protected SessionFactory sessionFactory;
 
+	@Autowired
+	protected CourseDao courseDao;
+
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	public Long create(final Instructor instructor) {
 		final Session session = sessionFactory.getCurrentSession();
-		
+
 		Calendar now = Calendar.getInstance();
 		instructor.setCreateDate(now);
 		instructor.setUpdateDate(now);
-		
+
 		return (Long) session.save(instructor);
 	}
 
@@ -60,5 +63,5 @@ public class InstructorDao {
 		final Session session = sessionFactory.getCurrentSession();
 		session.delete(instructor);
 	}
-	
+
 }

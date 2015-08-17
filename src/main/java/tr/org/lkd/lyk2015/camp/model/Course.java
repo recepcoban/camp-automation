@@ -17,7 +17,7 @@ public class Course extends AbstractBaseModel {
 	private String detailPageLink;	
 	private Boolean active;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy="courses")
 	private Set<Instructor> instructors = new HashSet<>();
 
 	public String getName() {

@@ -38,6 +38,14 @@
 					<b>Phone:</b> <input type="number" class="form-control"
 						th:field="*{phone}" />
 				</p>
+				
+				<div class="form-group">
+					<select multiple="multiple" name="courseIds" class="form-control">
+						<option th:each="course : ${courseIds}" th:value="${course.id}"
+							th:text="${course.name}" th:selected="${#lists.contains(instructor.courseIds,course)}">Wireframe</option>
+					</select>
+				</div>
+				
 				<p>
 					<input type="submit" class="btn btn-primary form-control"
 						value="Submit" />

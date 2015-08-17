@@ -61,5 +61,14 @@ public class CourseDao {
 		final Session session = sessionFactory.getCurrentSession();
 		session.delete(course);
 	}
+
+	public List<Course> getByIds(List<Long> ids) {
+		
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria criteria = session.createCriteria(Course.class);
+		criteria.add(Restrictions.in("id", ids));
+
+		return criteria.list();
+	}
 	
 }
