@@ -1,11 +1,13 @@
 package tr.org.lkd.lyk2015.camp.dal;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,11 @@ public class InstructorDao {
 
 	public Long create(final Instructor instructor) {
 		final Session session = sessionFactory.getCurrentSession();
+		
+		Calendar now = Calendar.getInstance();
+		instructor.setCreateDate(now);
+		instructor.setUpdateDate(now);
+		
 		return (Long) session.save(instructor);
 	}
 
@@ -41,6 +48,7 @@ public class InstructorDao {
 
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria criteria = session.createCriteria(Instructor.class);
+		criteria.add(Restrictions.eq("deleted", false));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.setFetchMode("*", FetchMode.JOIN);
 

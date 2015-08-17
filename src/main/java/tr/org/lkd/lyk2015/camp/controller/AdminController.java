@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,22 +67,22 @@ public class AdminController {
 		return "admin/admins";
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.GET, params={"id"})
-	public String updateForm(@ModelAttribute Admin admin, Model model, @RequestParam(value="message", required=false) String message) {
-		Admin adminNew = adminService.getById(admin.getId());
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public String updateForm(@ModelAttribute Admin admin, Model model,@PathVariable("id") Long id, @RequestParam(value="message", required=false) String message) {
+		Admin adminNew = adminService.getById(id);
 		model.addAttribute("admin", adminNew);
 		model.addAttribute("message", message); // fix repost problem
 		
 		return "admin/updateAdmin";
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	public String update(@ModelAttribute Admin admin, Model model) {
 		
 		adminService.update(admin);
 		model.addAttribute("message", "Success!");
 
-		return "redirect:/admins/update?id="+admin.getId(); // fix repost problem
+		return "redirect:/admins/update/"+String.valueOf(admin.getId()); // fix repost problem
 	}
 
 }

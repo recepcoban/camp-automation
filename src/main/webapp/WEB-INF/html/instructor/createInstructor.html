@@ -1,10 +1,12 @@
 <div th:fragment="content">
 	<div class="container">
-		<div class="text-center"><h1>Creating Instructor Form</h1></div>
+		<div class="text-center">
+			<h1>Creating Instructor Form</h1>
+		</div>
 		<br>
 		<div class="col-lg-4 col-lg-offset-4 ">
-			<form action="#" th:action="@{/instructors}" th:object="${instructors}"
-				method="post">
+			<form action="#" th:action="@{/instructors}"
+				th:object="${instructors}" method="post">
 				<div class="form-group" name="name" th:errorclass="has-error">
 					<input type="text" class="form-control" th:field="*{name}"
 						th:errorclass="has-error" placeholder="Name">
@@ -40,6 +42,14 @@
 					<input type="text" class="form-control" th:field="*{phone}"
 						th:errorclass="has-error" placeholder="Phone">
 					<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+				</div>
+
+
+				<div class="form-group">
+					<select multiple="multiple" class="form-control">
+						<option th:each="course : ${courses}" th:value="${course}"
+							th:text="${course.name}">Wireframe</option>
+					</select>
 				</div>
 
 				<p>

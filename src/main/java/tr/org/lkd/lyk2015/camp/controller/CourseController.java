@@ -9,8 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import tr.org.lkd.lyk2015.camp.model.Admin;
 import tr.org.lkd.lyk2015.camp.model.Course;
 import tr.org.lkd.lyk2015.camp.service.CourseService;
 
@@ -44,6 +48,27 @@ public class CourseController {
 		List<Course> courses = courseService.getAll();
 		model.addAttribute("courseList", courses);
 		return "course/courses";
+	}
+	
+	// @{/courses/__*{id}__}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public String updateForm(@ModelAttribute Course course, @PathVariable("id") Long id, Model model, @RequestParam(value="message", required=false) String message) {
+		Course courseNew = courseService.getById(id);
+		model.addAttribute("course", courseNew);
+		model.addAttribute("message", message); // fix repost problem
+		
+		return "course/updateCourse";
+	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+	public String update(@ModelAttribute Course course, Model model) {
+		
+		courseService.update(course);
+		model.addAttribute("message", "Success!");
+		
+		
+		return "redirect:/courses/update/"+String.valueOf(course.getId()); // fix repost problem
 	}
 
 }

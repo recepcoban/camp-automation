@@ -1,17 +1,18 @@
 <div th:fragment="content">
 	<div class="container">
 		<div class="text-center">
-			<h1>Updating Admin Form</h1>
+			<h1>Updating Instructor Form</h1>
 		</div>
 		<br>
 		<div class="col-lg-4 col-lg-offset-4 ">
-			<form action="#" th:action="@{/admins/update/__${admin.id}__}" th:object="${admin}"
-				method="post">
+			<form action="#" th:action="@{/instructors/update/__${instructor.id}__}"
+				th:object="${instructor}" method="post">
 				<p>
 					<input type="hidden" th:field="*{id}" />
 				</p>
 				<p>
-					<b>Name:</b> <input type="text" class="form-control" th:field="*{name}" />
+					<b>Name:</b> <input type="text" class="form-control"
+						th:field="*{name}" />
 				</p>
 				<p>
 					<b>Surname:</b> <input type="text" class="form-control"
@@ -22,10 +23,12 @@
 						th:field="*{birthDate}" />
 				</p>
 				<p>
-					<b>TC ID:</b> <input type="number" class="form-control" th:field="*{tckn}" />
+					<b>TC ID:</b> <input type="number" class="form-control"
+						th:field="*{tckn}" />
 				</p>
 				<p>
-					<b>E-mail:</b> <input type="text" class="form-control" th:field="*{email}" />
+					<b>E-mail:</b> <input type="text" class="form-control"
+						th:field="*{email}" />
 				</p>
 				<p>
 					<b>Password:</b> <input type="text" class="form-control"
@@ -36,10 +39,6 @@
 						th:field="*{phone}" />
 				</p>
 				<p>
-					<b>LKD ID:</b> <input type="number" class="form-control"
-						th:field="*{lkdNo}" />
-				</p>
-				<p>
 					<input type="submit" class="btn btn-primary form-control"
 						value="Submit" />
 				</p>
@@ -48,10 +47,10 @@
 				<div class="alert alert-success fade in" th:text="${message}"
 					th:if="${message} != null"></div>
 				</p>
-			</strong>
-			
-			<br><br><br>
+			</strong> <br>
+			<br>
+			<br>
 		</div>
-		
+
 	</div>
 </div>

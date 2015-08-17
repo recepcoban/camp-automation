@@ -1,0 +1,47 @@
+<div th:fragment="content">
+	<div class="container">
+		<div class="text-center">
+			<h1>Updating Course Form</h1>
+		</div>
+		<br>
+		<div class="col-lg-4 col-lg-offset-4 ">
+			<form action="#" th:action="@{/courses/update/__${course.id}__}"
+				th:object="${course}" method="post">
+				<p>
+					<input type="hidden" th:field="*{id}" />
+				</p>
+				<p>
+					<b>Name:</b> <input type="text" class="form-control"
+						th:field="*{name}" />
+				</p>
+				<p>
+					<b>Description:</b> <input type="text" class="form-control"
+						th:field="*{description}" />
+				</p>
+				<p>
+					<b>Prerequisites:</b> <input type="text" class="form-control"
+						th:field="*{prerequisites}" />
+				</p>
+				<p>
+					<b>Detail Page Link:</b> <input type="text" class="form-control"
+						th:field="*{detailPageLink}" />
+				</p>
+				<p>
+					<b>Active:</b> <input type="checkbox" name="active" th:checked="*{active}" />
+				</p>
+				<p>
+					<input type="submit" class="btn btn-primary form-control"
+						value="Submit" />
+				</p>
+			</form>
+			<strong>
+				<div class="alert alert-success fade in" th:text="${message}"
+					th:if="${message} != null"></div>
+				</p>
+			</strong> <br>
+			<br>
+			<br>
+		</div>
+
+	</div>
+</div>

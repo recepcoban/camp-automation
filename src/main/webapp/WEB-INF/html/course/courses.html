@@ -33,10 +33,7 @@
 							th:checked="${course.active}" /></td>
 
 					<td>
-						<form action="#" th:action="@{/courses/update}" method="get">
-							<button name="id" value="${course.id}" th:value="${course.id}"
-								class="btn btn-primary">Edit</button>
-						</form>
+						<a th:href="@{/courses/update/__${course.id}__}" class="btn btn-primary">Edit</a>
 					</td>
 				</tr>
 			</tbody>
