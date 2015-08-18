@@ -35,7 +35,7 @@ public class Application extends AbstractBaseModel {
 
 	private String workDetails;
 
-	private Integer englishLevel;
+	private Integer englishLevel = 0;
 
 	private String githubLink;
 
