@@ -55,4 +55,9 @@ public class CourseService implements Serializable {
 		return courseDao.getAll();
 	}
 
+	public Object getAllActive() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

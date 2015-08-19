@@ -2,9 +2,12 @@ package tr.org.lkd.lyk2015.camp.model;
 
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @MappedSuperclass
 public abstract class AbstractUser extends AbstractBaseModel {
 
+	@NotEmpty
 	private String name;
 	private String surname;
 	private Integer birthDate;
@@ -12,9 +15,9 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	private String email;
 	private String password;
 	private String phone;
-	
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -22,7 +25,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	}
 
 	public String getSurname() {
-		return surname;
+		return this.surname;
 	}
 
 	public void setSurname(String surname) {
@@ -30,7 +33,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	}
 
 	public Integer getBirthDate() {
-		return birthDate;
+		return this.birthDate;
 	}
 
 	public void setBirthDate(Integer birthDate) {
@@ -38,7 +41,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	}
 
 	public Long getTckn() {
-		return tckn;
+		return this.tckn;
 	}
 
 	public void setTckn(Long tckn) {
@@ -46,7 +49,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -54,7 +57,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -62,7 +65,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
