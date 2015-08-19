@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,15 +48,25 @@ public class ApplicationController {
 			BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("courses", this.courseService.getAll());
+			model.addAttribute("courses", this.courseService.getAllActive());
 			return "applicationForm";
 		} else {
 			this.applicationService.create(applicationFormDto);
-			return "redirect:/basvuru";
+			return "applicationSuccess";
 		}
 
-		// model.addAttribute("message", "kaydiniz basarili");
+	}
 
+	@RequestMapping(value = "/validate/{uuid}", method = RequestMethod.GET)
+	public String onayGet(@PathVariable("uuid") String uuid, Model model) {
+
+		if (this.applicationService.validate(uuid)) {
+			model.addAttribute("message", "Başvurunuz başarıyla onaylanmıştır.");
+			return "applicationValidate";
+		} else {
+			model.addAttribute("message", "Böyle ir form bulunmamaktadır. Lütfen yeniden başvurun!");
+			return "applicationValidate";
+		}
 	}
 
 }

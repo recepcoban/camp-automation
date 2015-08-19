@@ -12,9 +12,7 @@ import org.springframework.validation.Validator;
 import tr.org.lkd.lyk2015.camp.dto.ApplicationFormDto;
 import tr.org.lkd.lyk2015.camp.model.Application.WorkStatus;
 import tr.org.lkd.lyk2015.camp.model.Student;
-import tr.org.lkd.lyk2015.camp.service.ApplicationService;
 import tr.org.lkd.lyk2015.camp.service.BlackListValidationService;
-import tr.org.lkd.lyk2015.camp.service.EmailService;
 import tr.org.lkd.lyk2015.camp.service.ExamValidationService;
 import tr.org.lkd.lyk2015.camp.service.TcknValidationService;
 
@@ -29,12 +27,6 @@ public class ApplicationFormValidator implements Validator {
 
 	@Autowired
 	private ExamValidationService examValidationService;
-
-	@Autowired
-	private EmailService emailService;
-
-	@Autowired
-	private ApplicationService applicationService;
 
 	@Override
 	public boolean supports(Class<?> arg0) {
@@ -88,13 +80,6 @@ public class ApplicationFormValidator implements Validator {
 		boolean examValid = this.examValidationService.validate(student.getTckn(), student.getEmail());
 		if (!examValid) {
 			error.rejectValue("student.email", "error.emailInvalid", "Sinavi gecemedin ki ne ayaksin sen");
-		}
-
-		// email confirmation
-		boolean sendMail = this.emailService.sendEmailConfirmation(student.getEmail(), "E-mail Confirmation",
-				"buraya tikla");
-		if (!sendMail) {
-			error.rejectValue("student.email", "error.checkConfirmation", "Email Gönderilemedi!");
 		}
 
 	}

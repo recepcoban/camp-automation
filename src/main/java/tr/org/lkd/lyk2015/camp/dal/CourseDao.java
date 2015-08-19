@@ -15,39 +15,38 @@ import org.springframework.stereotype.Repository;
 
 import tr.org.lkd.lyk2015.camp.model.Course;
 
-
 @Repository
 public class CourseDao {
 
 	@Autowired
 	protected SessionFactory sessionFactory;
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public Long create(Course course) {
-		Session session = sessionFactory.getCurrentSession();
-		
+		Session session = this.sessionFactory.getCurrentSession();
+
 		Calendar now = Calendar.getInstance();
 		course.setCreateDate(now);
 		course.setUpdateDate(now);
-		
+
 		return (Long) session.save(course);
 	}
 
 	public Course getById(final Long id) {
-		final Session session = sessionFactory.getCurrentSession();
+		final Session session = this.sessionFactory.getCurrentSession();
 		return (Course) session.get(Course.class, id);
 	}
 
 	public Course update(final Course course) {
-		final Session session = sessionFactory.getCurrentSession();
+		final Session session = this.sessionFactory.getCurrentSession();
 		return (Course) session.merge(course);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Course> getAll() {
 
-		final Session session = sessionFactory.getCurrentSession();
+		final Session session = this.sessionFactory.getCurrentSession();
 		final Criteria criteria = session.createCriteria(Course.class);
 		criteria.add(Restrictions.eq("deleted", false));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -58,17 +57,24 @@ public class CourseDao {
 
 	public void hardDelete(final Course course) {
 
-		final Session session = sessionFactory.getCurrentSession();
+		final Session session = this.sessionFactory.getCurrentSession();
 		session.delete(course);
 	}
 
 	public List<Course> getByIds(List<Long> ids) {
-		
-		final Session session = sessionFactory.getCurrentSession();
+
+		final Session session = this.sessionFactory.getCurrentSession();
 		final Criteria criteria = session.createCriteria(Course.class);
 		criteria.add(Restrictions.in("id", ids));
 
 		return criteria.list();
 	}
-	
+
+	public List<Course> getAllActive() {
+		final Session session = this.sessionFactory.getCurrentSession();
+		final Criteria c = session.createCriteria(Course.class);
+		c.add(Restrictions.eq("active", true));
+		return c.list();
+	}
+
 }

@@ -19,7 +19,7 @@ import tr.org.lkd.lyk2015.camp.model.Student;
 @Transactional
 public class ApplicationService extends GenericService<Application> {
 
-	private static final String URL_BASE = "http://localhost:8080/CampAutomation/application/validate/";
+	private static final String URL_BASE = "http://localhost:8080/CampAutomation/basvuru/validate/";
 
 	@Autowired
 	private CourseDao courseDao;
@@ -30,6 +30,9 @@ public class ApplicationService extends GenericService<Application> {
 	@Autowired
 	private ApplicationDao applicationDao;
 
+	@Autowired
+	private EmailService emailService;
+
 	public void create(ApplicationFormDto applicationFormDto) {
 
 		Application application = applicationFormDto.getApplication();
@@ -37,7 +40,10 @@ public class ApplicationService extends GenericService<Application> {
 		List<Long> courseIds = applicationFormDto.getPreferredCourseIds();
 
 		String uuid = UUID.randomUUID().toString();
-		String url = URL_BASE + uuid;
+		String url = "<a href=\"" + URL_BASE + uuid + "\">" + URL_BASE + uuid + "</a>";
+
+		this.emailService.sendEmailConfirmation(student.getName(), student.getSurname(), student.getEmail(),
+				"Linux Yaz Kampi - Basvuru Onayi", url);
 
 		application.setValidationId(uuid);
 
@@ -55,6 +61,17 @@ public class ApplicationService extends GenericService<Application> {
 
 		this.applicationDao.create(application);
 
+	}
+
+	public boolean validate(String validationId) {
+		Application application = this.applicationDao.getByValidateId(validationId);
+		if (application == null) {
+			return false;
+		} else {
+			application.setValidated(true);
+			this.applicationDao.update(application);
+			return true;
+		}
 	}
 
 }

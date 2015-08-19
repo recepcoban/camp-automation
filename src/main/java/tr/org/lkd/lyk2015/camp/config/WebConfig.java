@@ -57,7 +57,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Description("Thymeleaf template engine with Spring integration")
 	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(templateResolver());
+		templateEngine.setTemplateResolver(this.templateResolver());
 
 		return templateEngine;
 	}
@@ -66,7 +66,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Description("Thymeleaf view resolver")
 	public ThymeleafViewResolver viewResolver() {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setTemplateEngine(this.templateEngine());
 		viewResolver.setContentType("text/html;charset=UTF-8");
 
 		return viewResolver;
@@ -97,7 +97,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 
 		sessionBuilder.scanPackages("tr.org.lkd.lyk2015.camp.model");
-		sessionBuilder.addProperties(getHibernateProperties());
+		sessionBuilder.addProperties(this.getHibernateProperties());
 
 		return sessionBuilder.buildSessionFactory();
 	}
@@ -109,7 +109,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		properties.put("hibernate.show_sql", "true");
 		properties.put("hibernate.format_sql", "true");
 		properties.put("hibernate.use_sql_comments", "true");
-//		properties.put("hibernate.enable_lazy_load_no_trans", "true");
+		// properties.put("hibernate.enable_lazy_load_no_trans", "true");
 		return properties;
 	}
 
