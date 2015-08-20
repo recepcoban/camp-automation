@@ -1,26 +1,34 @@
 package tr.org.lkd.lyk2015.camp.model;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @MappedSuperclass
-public abstract class AbstractUser extends AbstractBaseModel {
+public abstract class AbstractUser extends AbstractBaseModel implements UserDetails {
 
-	// @NotEmpty
+	@NotEmpty
 	private String name;
-	// @NotEmpty
+	@NotEmpty
 	private String surname;
-	// @NotEmpty
+	@NotNull
+	@Range(min = 1940, max = 2005)
 	private Integer birthDate;
-	// @NotEmpty
+	@NotNull
 	@Column(unique = true)
 	private Long tckn;
-	// @NotEmpty
+	@NotEmpty
 	@Column(unique = true)
 	private String email;
-	// @NotEmpty
+	// @Column(nullable = false)
 	private String password;
-	// @NotEmpty
 	@Column(unique = true)
 	private String phone;
 
@@ -64,6 +72,7 @@ public abstract class AbstractUser extends AbstractBaseModel {
 		this.email = email;
 	}
 
+	@Override
 	public String getPassword() {
 		return this.password;
 	}
@@ -78,6 +87,42 @@ public abstract class AbstractUser extends AbstractBaseModel {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.getEmail();
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

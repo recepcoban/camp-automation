@@ -11,9 +11,9 @@ public class StudentDao extends GenericDao<Student> {
 
 	public Student getUserByTckn(Long tckn) {
 		Criteria criteria = this.createCriteria();
+
 		criteria.add(Restrictions.eq("tckn", tckn));
 
 		return (Student) criteria.uniqueResult();
 	}
-
 }

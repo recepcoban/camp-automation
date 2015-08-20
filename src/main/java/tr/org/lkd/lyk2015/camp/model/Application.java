@@ -3,12 +3,12 @@ package tr.org.lkd.lyk2015.camp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -25,20 +25,21 @@ public class Application extends AbstractBaseModel {
 		WORKING, STUDENT, NOT_WORKING
 	}
 
-	@Max(2005)
-	@Min(1940)
-	// @NotEmpty
+	@Min(2012)
+	// @Column(nullable = false)
 	private Integer year;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private WorkStatus workStatus;
-	// @NotEmpty
+	@Column(nullable = false)
 	private Boolean officer = false;
 
 	private String corporation;
-	// @NotEmpty
+
 	private String workDetails;
-	// @NotEmpty
+
+	@Column(nullable = false)
 	private Integer englishLevel = 0;
 
 	private String githubLink;
@@ -47,15 +48,15 @@ public class Application extends AbstractBaseModel {
 	@ManyToMany
 	private Set<Course> preferredCourses = new HashSet<>();
 
-	// @NotEmpty
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Student owner;
 
-	// @NotEmpty
 	private boolean needAccomodation = true;
 
+	@Column(nullable = false)
 	private Boolean validated = false;
 
+	@Column(nullable = false)
 	private String validationId;
 
 	private boolean selected = false;

@@ -2,6 +2,7 @@ package tr.org.lkd.lyk2015.camp.model;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -12,12 +13,14 @@ public abstract class AbstractBaseModel {
 	@Id
 	@GeneratedValue
 	private Long id;
-	// @NotEmpty
+
+	@Column(nullable = false)
 	private Calendar createDate;
-	// @NotEmpty
+
+	@Column(nullable = false)
 	private Calendar updateDate;
 	private Calendar deleteDate;
-	// @NotEmpty
+
 	private Boolean deleted = false;
 
 	public Long getId() {

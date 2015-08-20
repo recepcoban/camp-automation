@@ -5,8 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Admin extends AbstractUser {
-	@Column(unique = true)
-	// @NotEmpty
+	@Column(unique = true, nullable = false)
 	private String lkdNo;
 
 	public String getLkdNo() {

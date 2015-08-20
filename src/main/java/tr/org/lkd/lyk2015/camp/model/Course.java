@@ -5,18 +5,21 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Course extends AbstractBaseModel {
 
-	// @NotEmpty
+	@NotEmpty
 	private String name;
-	// @NotEmpty
+	@NotEmpty
 	private String description;
-	// @NotEmpty
+	@NotEmpty
 	private String prerequisites;
 	private String detailPageLink;
-	// @NotEmpty
+	@NotNull
 	private Boolean active;
 
 	@ManyToMany(mappedBy = "courses")

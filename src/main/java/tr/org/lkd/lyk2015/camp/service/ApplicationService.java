@@ -48,6 +48,7 @@ public class ApplicationService extends GenericService<Application> {
 		application.setValidationId(uuid);
 
 		List<Course> courses = this.courseDao.getByIds(courseIds);
+		application.getPreferredCourses().clear();
 		application.getPreferredCourses().addAll(courses);
 
 		Student studentFromDb = this.studentDao.getUserByTckn(student.getTckn());
@@ -64,7 +65,7 @@ public class ApplicationService extends GenericService<Application> {
 	}
 
 	public boolean validate(String validationId) {
-		Application application = this.applicationDao.getByValidateId(validationId);
+		Application application = this.applicationDao.getByValidationId(validationId);
 		if (application == null) {
 			return false;
 		} else {

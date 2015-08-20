@@ -42,7 +42,7 @@ public class ApplicationController {
 	@RequestMapping(value = "/basvuru", method = RequestMethod.GET)
 	public String formGet(@ModelAttribute("form") ApplicationFormDto applicationFormDto, Model model) {
 
-		model.addAttribute("courses", this.courseService.getAllActive());
+		model.addAttribute("courses", this.courseService.getAll());
 		return "applicationForm";
 	}
 
@@ -51,7 +51,7 @@ public class ApplicationController {
 			BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("courses", this.courseService.getAllActive());
+			model.addAttribute("courses", this.courseService.getAll());
 			return "applicationForm";
 		} else {
 			this.applicationService.create(applicationFormDto);
