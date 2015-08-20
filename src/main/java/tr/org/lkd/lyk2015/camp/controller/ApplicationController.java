@@ -1,5 +1,7 @@
 package tr.org.lkd.lyk2015.camp.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tr.org.lkd.lyk2015.camp.dto.ApplicationFormDto;
+import tr.org.lkd.lyk2015.camp.model.Application;
 import tr.org.lkd.lyk2015.camp.service.ApplicationService;
 import tr.org.lkd.lyk2015.camp.service.CourseService;
 import tr.org.lkd.lyk2015.camp.validation.ApplicationFormValidator;
 
 @Controller
-@RequestMapping("/basvuru")
+@RequestMapping("")
 public class ApplicationController {
 
 	@Autowired
@@ -36,14 +39,14 @@ public class ApplicationController {
 		binder.addValidators(this.applicationFormValidator);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/basvuru", method = RequestMethod.GET)
 	public String formGet(@ModelAttribute("form") ApplicationFormDto applicationFormDto, Model model) {
 
-		model.addAttribute("courses", this.courseService.getAll());
+		model.addAttribute("courses", this.courseService.getAllActive());
 		return "applicationForm";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/basvuru", method = RequestMethod.POST)
 	public String formPost(@ModelAttribute("form") @Valid ApplicationFormDto applicationFormDto,
 			BindingResult bindingResult, Model model) {
 
@@ -57,16 +60,30 @@ public class ApplicationController {
 
 	}
 
-	@RequestMapping(value = "/validate/{uuid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/apps/validate/{uuid}", method = RequestMethod.GET)
 	public String onayGet(@PathVariable("uuid") String uuid, Model model) {
 
 		if (this.applicationService.validate(uuid)) {
 			model.addAttribute("message", "Başvurunuz başarıyla onaylanmıştır.");
 			return "applicationValidate";
 		} else {
-			model.addAttribute("message", "Böyle ir form bulunmamaktadır. Lütfen yeniden başvurun!");
+			model.addAttribute("message", "Böyle bir form bulunmamaktadır. Lütfen yeniden başvurun!");
 			return "applicationValidate";
 		}
+	}
+
+	@RequestMapping(value = "/apps", method = RequestMethod.GET)
+	public String list(Model model) {
+		List<Application> apps = this.applicationService.getAll();
+
+		model.addAttribute("applicationList", apps);
+		return "applications";
+	}
+
+	@RequestMapping(value = "/apps/selected/{id}", method = RequestMethod.GET)
+	public String selectedApps(@ModelAttribute Application application, Model model, @PathVariable("id") Long id) {
+
+		return "applications";
 	}
 
 }

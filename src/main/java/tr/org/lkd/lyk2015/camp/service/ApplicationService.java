@@ -19,7 +19,7 @@ import tr.org.lkd.lyk2015.camp.model.Student;
 @Transactional
 public class ApplicationService extends GenericService<Application> {
 
-	private static final String URL_BASE = "http://localhost:8080/CampAutomation/basvuru/validate/";
+	private static final String URL_BASE = "http://localhost:8080/CampAutomation/apps/validate/";
 
 	@Autowired
 	private CourseDao courseDao;
@@ -72,6 +72,12 @@ public class ApplicationService extends GenericService<Application> {
 			this.applicationDao.update(application);
 			return true;
 		}
+	}
+
+	@Override
+	public List<Application> getAll() {
+
+		return this.applicationDao.getAll();
 	}
 
 }

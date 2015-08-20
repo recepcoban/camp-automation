@@ -3,21 +3,25 @@ package tr.org.lkd.lyk2015.camp.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @MappedSuperclass
 public abstract class AbstractUser extends AbstractBaseModel {
 
-	@NotEmpty
+	// @NotEmpty
 	private String name;
+	// @NotEmpty
 	private String surname;
+	// @NotEmpty
 	private Integer birthDate;
-
+	// @NotEmpty
 	@Column(unique = true)
 	private Long tckn;
-
+	// @NotEmpty
+	@Column(unique = true)
 	private String email;
+	// @NotEmpty
 	private String password;
+	// @NotEmpty
+	@Column(unique = true)
 	private String phone;
 
 	public String getName() {

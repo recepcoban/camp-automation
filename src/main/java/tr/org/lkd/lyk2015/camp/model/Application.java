@@ -8,6 +8,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 /**
  * This entity represents an application form which is submitted by a Student.
@@ -22,32 +25,40 @@ public class Application extends AbstractBaseModel {
 		WORKING, STUDENT, NOT_WORKING
 	}
 
+	@Max(2005)
+	@Min(1940)
+	// @NotEmpty
 	private Integer year;
 
 	@Enumerated(EnumType.STRING)
 	private WorkStatus workStatus;
-
+	// @NotEmpty
 	private Boolean officer = false;
 
 	private String corporation;
-
+	// @NotEmpty
 	private String workDetails;
-
+	// @NotEmpty
 	private Integer englishLevel = 0;
 
 	private String githubLink;
 
+	@Size(min = 1, max = 3)
 	@ManyToMany
 	private Set<Course> preferredCourses = new HashSet<>();
 
+	// @NotEmpty
 	@ManyToOne
 	private Student owner;
 
+	// @NotEmpty
 	private boolean needAccomodation = true;
 
 	private Boolean validated = false;
 
 	private String validationId;
+
+	private boolean selected = false;
 
 	public WorkStatus getWorkStatus() {
 		return this.workStatus;
@@ -155,6 +166,14 @@ public class Application extends AbstractBaseModel {
 
 	public void setValidationId(String validationId) {
 		this.validationId = validationId;
+	}
+
+	public boolean isSelected() {
+		return this.selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }

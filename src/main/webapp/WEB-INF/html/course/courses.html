@@ -27,14 +27,15 @@
 
 					<td th:text="${course.prerequisites}"></td>
 
-					<td><a th:href="${course.detailPageLink}" target="_blank">More Info</a></td>
+					<td><a th:href="${course.detailPageLink}" target="_blank">More
+							Info</a></td>
 
-						<td><input type="checkbox" class="checkbox" name="active"
-							th:checked="${course.active}" disabled="disabled"/></td>
+					<td><input type="checkbox" class="checkbox" name="active"
+						th:field="${course.active}" th:checked="${course.active}"
+						disabled="disabled" /></td>
 
-					<td>
-						<a th:href="@{/courses/update/__${course.id}__}" class="btn btn-primary">Edit</a>
-					</td>
+					<td><a th:href="@{/courses/update/__${course.id}__}"
+						class="btn btn-primary">Edit</a></td>
 				</tr>
 			</tbody>
 		</table>

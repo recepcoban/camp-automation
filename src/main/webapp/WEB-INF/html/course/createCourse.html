@@ -28,8 +28,8 @@
 						th:errorclass="has-error" placeholder="Detail Page Link">
 					<p th:if="${#fields.hasErrors('detailPageLink')}" th:errors="*{detailPageLink}"></p>
 				</div>
-				<label for="ch">Active : <input type="checkbox" id="ch"
-						class="checkbox" th:field="*{active}" /></label>
+				<label for="active">Active : <input type="checkbox" id="active"
+						class="checkbox" th:checked="*{active}" th:field="*{active}" /></label>
 
 				<p>
 					<input type="submit" value="Submit"

@@ -1,5 +1,7 @@
 package tr.org.lkd.lyk2015.camp.dal;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -16,4 +18,13 @@ public class ApplicationDao extends GenericDao<Application> {
 		return (Application) c.uniqueResult();
 
 	}
+
+	@Override
+	public List<Application> getAll() {
+
+		Criteria criteria = this.createCriteria();
+
+		return criteria.list();
+	}
+
 }

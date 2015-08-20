@@ -1,0 +1,56 @@
+<div th:fragment="content">
+
+	<div class="container">
+		<div class="text-center">
+			<h1>Applications</h1>
+		</div>
+		<br>
+
+		<table class="table table-hover">
+			<thead>
+				<th>Owner</th>
+				<th>Work Status</th>
+				<th>Corporation</th>
+				<th>Work Details</th>
+				<th>Github</th>
+				<th>English Level</th>
+				<th>Need Accomodation</th>
+				<th>Validated</th>
+				<th>Selected</th>
+
+			</thead>
+			<tbody>
+				<tr th:each="application : ${applicationList}">
+
+					<td
+						th:text="${application.owner.name + ' ' + application.owner.surname}"></td>
+
+					<td th:text="${application.workStatus}"></td>
+
+					<td th:text="${application.corporation}"></td>
+
+					<td th:text="${application.workDetails}"></td>
+
+					<td><a th:href="${application.githubLink}" target="_blank">Github</a></td>
+
+					<td th:text="${application.englishLevel}"></td>
+
+					<td th:text="${application.needAccomodation}"></td>
+
+					<td><input type="checkbox" class="checkbox" name="validated"
+						th:field="${application.validated}"
+						th:checked="${application.validated}" disabled="disabled" /></td>
+
+					<td><input type="checkbox" class="checkbox" name="selected"
+						th:field="${application.selected}"
+						th:checked="${application.selected}" disabled="disabled" /></td>
+
+
+
+					<td><a th:href="@{/apps/selected/__${application.id}__}"
+						class="btn btn-primary">Select</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

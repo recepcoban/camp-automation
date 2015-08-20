@@ -43,8 +43,8 @@ public class MockEmailService implements EmailService {
 			message.setSubject(subject);
 			// message.setText();
 			message.setContent("Dear " + name + " " + surname
-					+ ", \n\n No spam to my email, please!<br><br>Basvurunuzun onaylanmasi icin asagidaki linke tiklayin."
-					+ "<br><br>" + content, "text/html; charset=utf-8");
+					+ ",<br><br>Basvurunuzun onaylanmasi icin asagidaki linke tiklayin." + "<br><br>" + content,
+					"text/html; charset=utf-8");
 
 			Transport.send(message);
 

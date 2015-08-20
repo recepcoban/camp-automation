@@ -21,7 +21,7 @@ public class Student extends AbstractUser {
 	private Set<Application> applicationForms;
 
 	public Sex getSex() {
-		return sex;
+		return this.sex;
 	}
 
 	public void setSex(Sex sex) {

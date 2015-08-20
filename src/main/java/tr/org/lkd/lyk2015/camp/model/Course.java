@@ -9,10 +9,14 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Course extends AbstractBaseModel {
 
+	// @NotEmpty
 	private String name;
+	// @NotEmpty
 	private String description;
+	// @NotEmpty
 	private String prerequisites;
 	private String detailPageLink;
+	// @NotEmpty
 	private Boolean active;
 
 	@ManyToMany(mappedBy = "courses")
